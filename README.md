@@ -22,13 +22,13 @@
 
 ```
 //成功的返回
-res.json({
+{
     code: 200,
     message: codeMsg['200'],
     data: user
 }
 //失败的返回
-res.json({
+{
     code: err.code,
     message: CodeMsg[err.code] || CodeMsg['10101'],
     data: err.message
