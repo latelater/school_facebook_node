@@ -30,6 +30,10 @@ const UserSchema = new Schema({
     create_date: {
         type: Date,
         default: createDate
+    },
+    gender: {
+        type: String,
+        default: 'female'
     }
 });
 
