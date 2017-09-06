@@ -3,15 +3,42 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon bin/www.js --exec babel-node --presets es2015,stage-2",
+    "build": "babel bin -d dist",
+    "server": "node dist/www.js"
   },
   "dependencies": {
-    "body-parser": "~1.15.2",
+    "async": "^2.5.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "body-parser": "~1.17.1",
+    "co": "^4.6.0",
+    "connect-mongo": "^1.3.2",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.14.0",
+    "cors": "^2.8.3",
+    "crypto": "^0.0.3",
+    "debug": "~2.6.3",
+    "ee-first": "^1.1.1",
+    "express": "~4.15.2",
+    "express-session": "^1.15.2",
+    "forwarded": "^0.1.0",
     "jade": "~1.11.0",
-    "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "mongoose": "^4.11.5",
+    "morgan": "~1.8.1",
+    "multer": "^1.3.0",
+    "pinyin": "^2.8.3",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.24.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-regenerator": "^6.22.0",
+    "babel-preset-env": "^1.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "env": "0.0.2",
+    "nodemon": "^1.11.0"
   }
 }
