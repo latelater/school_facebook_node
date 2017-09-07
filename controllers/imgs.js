@@ -10,12 +10,12 @@ exports.uploadImg = function(req, res, next) {
         description = res.description;
     }
     console.log(req.file);
-    console.log(req.body);
+    // console.log(req.body);
     
-    if (req.files.length > 0) {
+    if (req.file.length > 0) {
         // 获取文件的临时路径
-        var tmp_path = './' + req.files[0].path;
-        var target_path = './public/upload/' + req.files[0].originalname;
+        var tmp_path = './' + req.file[0].path;
+        var target_path = './public/upload/' + req.file[0].originalname;
 
         fs.rename(tmp_path, target_path, function (err) {
             if (err) throw err;

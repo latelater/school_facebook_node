@@ -19,8 +19,8 @@ exports.create_user = function (req, res, next) {
         })
         return ;
     }
-    // let encryptedObj = new encryptClass();
-    // let encryptedStr = encryptedObj.encryptedPass(password);
+    let encryptedObj = new encryptClass();
+    let encryptedStr = encryptedObj.encryptedPass(password);
 
     User.create({
         username: username,
@@ -60,7 +60,7 @@ exports.login = function(req, res, next) {
         } else if(user) {
             let encryptedObj = new encryptClass();
             let encryptedStr = encryptedObj.encryptedPass(password);
-            if(user.password === encryptedStr) {
+            if(user.password === password) {
                 req.session.user = user;
                 console.log(req.session.user);
                 res.json({
