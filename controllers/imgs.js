@@ -24,7 +24,7 @@ exports.uploadImg = function(req, res, next) {
     } else {
         target_path = '';
     }
-
+    console.log(target_path);
     Img.create({
         user: req.session.user,
         description: description,
@@ -47,12 +47,41 @@ exports.uploadImg = function(req, res, next) {
 }
 
 exports.createRemark = function(req, res, next) {
-    let remark = req.body.content;
-    let user = req.body.user;
-    let img = req.body.img;
+    let content = req.body.content;
+    let img_id = req.body.img_id;
 
-
-
-
+    Img.findOne({
+        _id: img_id
+    }, function(err, img) {
+        if(err) {
+            console.log("报错啦");
+            res.json({
+                code: err.code || 10104,
+                message: codeMsg[err.code] || codeMsg['10104'],
+                data: ''
+            })
+        } else if(img) {
+            Remark.create({
+                user: req.session.user,
+                img: img,
+                content: content 
+            }, function(err, remark) {
+                if(err) {
+                    res.json({
+                        code: err.code,
+                        message: codeMsg[err.code] || codeMsg['500'],
+                        data: ''
+                    })
+                } else if(remark) {
+                    res.json({
+                        code: 200,
+                        message: codeMsg['200'],
+                        data: remark
+                    })
+                }
+            })
+        }
+    })
+    
 }
 

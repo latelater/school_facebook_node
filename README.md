@@ -16,7 +16,7 @@
  > 例如新建用户端口：
  > 115.28.180.202:3000/user/create_user
 
-3. 请求头说明：不带图片的setRequestHeader('Content-type', 'application/x-www-form-urlencoded') ；带图片的setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+3. 请求头说明：setRequestHeader('Content-type', 'application/x-www-form-urlencoded') 
 4. 必选入口参数说明：表中给出的只是必选的参数，还有附带的参数请去Robot2T工具中查看，或者咨询我。
 5. 出口参数说明：返回数据格式统一，可以使用postman查看每个接口的返回信息，统一格式如下：
 
@@ -41,7 +41,6 @@
 | user/create_user | 新建用户 |post |username,password,gender(male or female) |user|
 | user/login| 用户登录 | post |username,password|user|
 |/user/user_info| 用户基本信息|post|username|user|
-|/img/uploadImg|用户上传图片|post|description,file||
 
 ----------
 
