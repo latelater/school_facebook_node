@@ -19,12 +19,12 @@ exports.create_user = function (req, res, next) {
         })
         return ;
     }
-    let encryptedObj = new encryptClass();
-    let encryptedStr = encryptedObj.encryptedPass(password);
+    // let encryptedObj = new encryptClass();
+    // let encryptedStr = encryptedObj.encryptedPass(password);
 
     User.create({
         username: username,
-        password: encryptedStr,
+        password: password,
         gender: gender
     }, function (err, user) {
             if (err) {
