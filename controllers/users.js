@@ -6,6 +6,7 @@ import myDate from "../utils/MyDate";
 exports.create_user = function (req, res, next) {
     let username = req.body.username;
     let password = req.body.password;
+    console.log(req.body.username, req.body.password);
     let gender = 'female';
     // if(typeof password != 'String')
     if(req.body.gender == 'female' || req.body.gender == 'male') {
