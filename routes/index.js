@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 router.post('/user/create_user', user.create_user);
-router.get('/user/login', user.login);
+router.post('/user/login', user.login);
 router.post('/user/user_info', authorization.requireLogin, user.user_info);
 router.post('/img/uploadImg', authorization.requireLogin, img.uploadImg);
 module.exports = router;
