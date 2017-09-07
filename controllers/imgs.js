@@ -1,5 +1,6 @@
 import {code as codeMsg} from '../utils/code';
 import {Img} from '../models/ImgList';
+import {Remark} from '../models/remarkList';
 import encryptClass from "../utils/Encrypt";
 import myDate from "../utils/MyDate";
 const fs = require('fs');
@@ -9,13 +10,13 @@ exports.uploadImg = function(req, res, next) {
     if(req.description) {
         description = res.description;
     }
-    console.log(req.file);
+    console.log(req.files);
     // console.log(req.body);
     
-    if (req.file.length > 0) {
+    if (req.files.length > 0) {
         // 获取文件的临时路径
-        var tmp_path = './' + req.file[0].path;
-        var target_path = './public/upload/' + req.file[0].originalname;
+        var tmp_path = './' + req.files[0].path;
+        var target_path = './public/upload/' + req.files[0].originalname;
 
         fs.rename(tmp_path, target_path, function (err) {
             if (err) throw err;
@@ -43,6 +44,14 @@ exports.uploadImg = function(req, res, next) {
             })
         }
     })
+}
+
+exports.createRemark = function(req, res, next) {
+    let remark = req.body.content;
+    let user = req.body.user;
+    let img = req.body.img;
+
+
 
 
 }
