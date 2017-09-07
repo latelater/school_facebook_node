@@ -38,9 +38,9 @@
 
 | 接口名称|接口说明|发送方式|必选入口参数 | 出口参数 |
 | -------|------ |-------------| -----|-----|
-| user/create_user | 新建用户 |post |username,password |user|
+| user/create_user | 新建用户 |post |username,password,gender(male or female) |user|
 | user/login| 用户登录 | post |username,password|user|
-
+|/user/user_info| 用户基本信息|post|username|user|
 
 ----------
 

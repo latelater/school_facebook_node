@@ -5,7 +5,7 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let multer = require('multer'); // v1.0.5
-let upload = multer(); // for parsing multipart/form-dataire('multer');
+// let upload = multer(); // for parsing multipart/form-dataire('multer');
 let mongoose = require('mongoose');
 let cors = require('cors');
 let session = require('express-session');
@@ -15,6 +15,20 @@ let index = require('./routes/index');
 let users = require('./routes/users');
 
 let app = express();
+
+// var uploads = multer({ dest: 'uploads/  ' })
+
+// var cpUpload = uploads.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
+// app.post('/personal_blog_node', cpUpload, function (req, res, next) {
+//   // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files 
+//   // 
+//   // e.g. 
+//   //  req.files['avatar'][0] -> File 
+//   //  req.files['gallery'] -> Array 
+//   // 
+//   // req.body will contain the text fields, if there were any 
+// })
+
 let options = {
 	server: {
 		socketOptions: {
@@ -37,6 +51,18 @@ db.on('error', console.error.bind(console, '链接错误'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+var storge = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+        var fileformat = (file.originalname).split('.');
+        cb(null, file.fieldname+'-'+Date.now()+'.'+fileformat[fileformat.length-1]);
+    }
+})
+
+var upload = multer({storage: storge})
+
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', './images/favicon.png')));
 app.use(logger('dev'));
@@ -44,6 +70,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/personal_blog_node', upload.array(), function (req, res, next) {
   console.log(req.body);
+  // console.log(req.file);  
   res.json(req.body);
 });
 

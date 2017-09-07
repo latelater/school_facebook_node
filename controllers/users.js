@@ -6,13 +6,25 @@ import myDate from "../utils/MyDate";
 exports.create_user = function (req, res, next) {
     let username = req.body.username;
     let password = req.body.password;
-
+    let gender = 'female';
+    // if(typeof password != 'String')
+    if(req.body.gender == 'female' || req.body.gender == 'male') {
+        gender = req.body.gender;
+    } else {
+        res.json({
+            code: 10107,
+            message: codeMsg['10107'],
+            data: ''
+        })
+        return ;
+    }
     let encryptedObj = new encryptClass();
     let encryptedStr = encryptedObj.encryptedPass(password);
 
     User.create({
         username: username,
-        password: encryptedStr
+        password: encryptedStr,
+        gender: gender
     }, function (err, user) {
             if (err) {
                 res.json({

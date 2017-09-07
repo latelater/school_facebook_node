@@ -49,6 +49,7 @@ class myDate {
         return day;
     }
 
+
 }
 
 export default myDate;

@@ -1,36 +1,33 @@
-
-
 const mongoose = require('mongoose');
 import myDate from "../utils/MyDate";
 const Schema = mongoose.Schema;
 
 let date = new myDate();
 let createDate = date.getNowDate();
-
-const UserSchema = new Schema({
-    username: {
-        type: String,
-        default: '',
-        require: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        default: '',
+let image_name = date.toString();
+const ImgSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         require: true
     },
-    introduce: {
+    imgname: {
         type: String,
-        default: '暂无',
+        default: '',
+    },
+    description: {
+        type: String,
+        default: '快来添加描述吧',
     },
     create_date: {
         type: Date,
         default: createDate
     },
-    gender: {
+    imgurl: {
         type: String,
-        default: 'female'
+        default: '',
+        require: true
     }
-});
+})
 
-exports.User = mongoose.model('User', UserSchema);
+exports.Img = mongoose.model('Img', ImgSchema);
