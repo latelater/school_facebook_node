@@ -23,7 +23,7 @@ exports.create_user = function (req, res, next) {
 
     User.create({
         username: username,
-        password: password,
+        password: encryptedStr,
         gender: gender
     }, function (err, user) {
             if (err) {
@@ -61,7 +61,7 @@ exports.login = function(req, res, next) {
         } else if(user) {
             let encryptedObj = new encryptClass();
             let encryptedStr = encryptedObj.encryptedPass(password);
-            if(user.password === password) {
+            if(user.password === encryptedStr) {
                 req.session.user = user;
                 console.log(req.session.user);
                 res.json({

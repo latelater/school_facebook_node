@@ -1,5 +1,6 @@
 import {code as codeMsg} from '../utils/code';
 import {Img} from '../models/ImgList';
+import {Remark} from '../models/remarkList';
 import encryptClass from "../utils/Encrypt";
 import myDate from "../utils/MyDate";
 const fs = require('fs');
@@ -43,6 +44,14 @@ exports.uploadImg = function(req, res, next) {
             })
         }
     })
+}
+
+exports.createRemark = function(req, res, next) {
+    let remark = req.body.content;
+    let user = req.body.user;
+    let img = req.body.img;
+
+
 
 
 }
