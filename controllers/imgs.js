@@ -1,6 +1,7 @@
 import {code as codeMsg} from '../utils/code';
 import {Img} from '../models/ImgList';
 import {Remark} from '../models/remarkList';
+import {Mark} from '../models/MarkList';
 import encryptClass from "../utils/Encrypt";
 import myDate from "../utils/MyDate";
 const fs = require('fs');
@@ -54,7 +55,6 @@ exports.createRemark = function(req, res, next) {
         _id: img_id
     }, function(err, img) {
         if(err) {
-            console.log("报错啦");
             res.json({
                 code: err.code || 10104,
                 message: codeMsg[err.code] || codeMsg['10104'],
@@ -82,6 +82,50 @@ exports.createRemark = function(req, res, next) {
             })
         }
     })
-    
 }
 
+exports.addMark = function(req, res, next) {
+    let img_id = req.body.img_id;
+    let isMark = req.body.mark;
+
+    if(isMark === false) {
+        res.json({
+            code: 10108,
+            message: codeMsg['10108'],
+            data:''
+        })
+        return ;
+    }
+
+    Img.findOne({
+        _id: img_id,
+    }, function(err, img) {
+        if(err) {
+            res.json({
+                code: err.code || 10104,
+                message: codeMsg[err.code] || codeMsg['10104'],
+                data: ''
+            })
+        } else if(img) {
+            Mark.create({
+                user: req.session.user,
+                img: img,
+                isMark: isMark
+            }, function(err, mark) {
+                if(err) {
+                    res.json({
+                        code: err.code,
+                        message: codeMsg[err.code] || codeMsg['500'],
+                        data: ''
+                    })
+                } else if(mark) {
+                    res.json({
+                        code: 200,
+                        message: codeMsg['200'],
+                        data: mark
+                    })
+                }
+            })
+        }
+    })
+}

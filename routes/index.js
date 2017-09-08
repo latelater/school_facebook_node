@@ -13,5 +13,7 @@ router.post('/user/login', user.login);
 router.post('/user/user_info', authorization.requireLogin, user.user_info);
 router.post('/img/uploadImg', authorization.requireLogin, img.uploadImg);
 router.post('/img/createRemark', authorization.requireLogin, img.createRemark);
+router.post('/img/addMark', authorization.requireLogin, img.addMark);
+
 module.exports = router;
 
