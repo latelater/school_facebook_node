@@ -1,7 +1,7 @@
 import {code as codeMsg} from '../utils/code';
 import {Img} from '../models/ImgList';
 import {Remark} from '../models/remarkList';
-import {Mark} from '../models/MarkList';
+import {Mark} from '../models/markList';
 import encryptClass from "../utils/Encrypt";
 import myDate from "../utils/MyDate";
 const fs = require('fs');
