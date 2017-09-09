@@ -10,10 +10,11 @@ router.get('/', function(req, res, next) {
 });
 router.post('/user/create_user', user.create_user);
 router.post('/user/login', user.login);
-router.post('/user/user_info', authorization.requireLogin, user.user_info);
-router.post('/img/uploadImg', authorization.requireLogin, img.uploadImg);
-router.post('/img/createRemark', authorization.requireLogin, img.createRemark);
-router.post('/img/addMark', authorization.requireLogin, img.addMark);
+router.post('/user/user_info', user.user_info);
+router.post('/img/uploadImg', img.uploadImg);
+router.post('/img/createRemark', img.createRemark);
+// router.post('/img/addMark', authorization.requireLogin, img.addMark);
+router.post('/img/addMark', img.addMark);
 
 module.exports = router;
 

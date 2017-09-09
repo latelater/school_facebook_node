@@ -8,8 +8,9 @@ const fs = require('fs');
 
 exports.uploadImg = function(req, res, next) {
     let description = '快来添加描述吧';
+    // let user_id = req.user_id;
     if(req.description) {
-        description = res.description;
+        description = req.body.description;
     }
     console.log(req.files);
     // console.log(req.body);
@@ -27,7 +28,7 @@ exports.uploadImg = function(req, res, next) {
     }
     console.log(target_path);
     Img.create({
-        user: req.session.user,
+        // user: req.session.user,
         description: description,
         imgurl: target_path
     }, function(err, img) {
@@ -50,6 +51,7 @@ exports.uploadImg = function(req, res, next) {
 exports.createRemark = function(req, res, next) {
     let content = req.body.content;
     let img_id = req.body.img_id;
+    let user_id = req.body.user_id;
 
     Img.findOne({
         _id: img_id
@@ -62,7 +64,7 @@ exports.createRemark = function(req, res, next) {
             })
         } else if(img) {
             Remark.create({
-                user: req.session.user,
+                // user: req.session.user,
                 img: img,
                 content: content 
             }, function(err, remark) {
@@ -86,16 +88,17 @@ exports.createRemark = function(req, res, next) {
 
 exports.addMark = function(req, res, next) {
     let img_id = req.body.img_id;
-    let isMark = req.body.mark;
+    // let isMark = req.body.mark;
+    let user_id = req.body._id;
 
-    if(isMark === false) {
-        res.json({
-            code: 10108,
-            message: codeMsg['10108'],
-            data:''
-        })
-        return ;
-    }
+    // if(isMark === false) {
+    //     res.json({
+    //         code: 10108,
+    //         message: codeMsg['10108'],
+    //         data:''
+    //     })
+    //     return ;
+    // }
 
     Img.findOne({
         _id: img_id,
@@ -108,9 +111,9 @@ exports.addMark = function(req, res, next) {
             })
         } else if(img) {
             Mark.create({
-                user: req.session.user,
+                // user: req.session.user,
                 img: img,
-                isMark: isMark
+                isMark: true
             }, function(err, mark) {
                 if(err) {
                     res.json({
