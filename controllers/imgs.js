@@ -132,3 +132,7 @@ exports.addMark = function(req, res, next) {
         }
     })
 }
+
+exports.findAllImgs = function(req, res, next) {
+    
+}
