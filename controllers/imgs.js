@@ -9,7 +9,7 @@ const fs = require('fs');
 
 exports.uploadImg = function(req, res, next) {
     let description = '快来添加描述吧';
-    let user_id = req.user_id;
+    let user_id = req.body.user_id;
     if(req.description) {
         description = req.body.description;
     }
