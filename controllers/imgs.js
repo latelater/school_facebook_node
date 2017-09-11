@@ -8,7 +8,7 @@ const fs = require('fs');
 
 exports.uploadImg = function(req, res, next) {
     let description = '快来添加描述吧';
-    // let user_id = req.user_id;
+    let user_id = req.user_id;
     if(req.description) {
         description = req.body.description;
     }
@@ -27,22 +27,34 @@ exports.uploadImg = function(req, res, next) {
         target_path = '';
     }
     console.log(target_path);
-    Img.create({
-        // user: req.session.user,
-        description: description,
-        imgurl: target_path
-    }, function(err, img) {
+    User.findOne({
+        _id: user_id
+    }, function(err, user){
         if(err) {
             res.json({
-                code:err.code,
-                message: codeMsg[err.code] || codeMsg['500'],
+                code: 10102,
+                message: codeMsg['10102'],
                 data: ''
             })
-        } else if(img) {
-            res.json({
-                code: 200,
-                message: codeMsg['200'],
-                data: img
+        } else if(user) {
+            Img.create({
+                user: req.session.user,
+                description: description,
+                imgurl: target_path
+            }, function(err, img) {
+                if(err) {
+                    res.json({
+                        code:err.code,
+                        message: codeMsg[err.code] || codeMsg['500'],
+                        data: ''
+                    })
+                } else if(img) {
+                    res.json({
+                        code: 200,
+                        message: codeMsg['200'],
+                        data: img
+                    })
+                }
             })
         }
     })
@@ -133,6 +145,6 @@ exports.addMark = function(req, res, next) {
     })
 }
 
-exports.findAllImgs = function(req, res, next) {
-    
+exports.findAllImgsMark = function(req, res, next) {
+    //点赞数排序的图片列表，图片地址
 }

@@ -20,7 +20,11 @@ const MarkSchema = new Schema({
         type: Boolean,
         require: true,
         defalt: false
-    }
+    },
+    create_date: {
+        type: Date,
+        default: createDate
+    },
 })
 
 exports.Mark = mongoose.model('Mark', MarkSchema);
