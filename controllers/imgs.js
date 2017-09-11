@@ -121,6 +121,9 @@ exports.createRemark = function(req, res, next) {
     })
 }
 
+exports.getAllRemarks = function(req, res, next) {
+    
+},
 exports.addMark = function(req, res, next) {
     let img_id = req.body.img_id;
     // let isMark = req.body.mark;
