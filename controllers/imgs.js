@@ -77,7 +77,7 @@ exports.createRemark = function(req, res, next) {
             res.json({
                 code: 10102,
                 message: codeMsg['10102'],
-                data: err
+                data: ''
             })
         } else if(user) {
             Img.findOne({
@@ -126,62 +126,129 @@ exports.getAllRemarks = function(req, res, next) {
 },
 exports.addMark = function(req, res, next) {
     let img_id = req.body.img_id;
-    // let isMark = req.body.mark;
     let user_id = req.body.user_id;
-
-    // if(isMark === false) {
-    //     res.json({
-    //         code: 10108,
-    //         message: codeMsg['10108'],
-    //         data:''
-    //     })
-    //     return ;
-    // }
-
     Img.findOne({
         _id: img_id,
     }, function(err, img) {
+        // console.log("11111111111111111111")
         if(err) {
+            // console.log("222222222222222222")
+            
             res.json({
                 code: err.code || 10104,
                 message: codeMsg[err.code] || codeMsg['10104'],
                 data: ''
             })
         } else if(img) {
-                    
-            Remark.findOne({
-                user: user,
-                img: img
-            }, function(err, remark) {
-                if(remark) {
-                    res.json({
-                        code: 10108,
-                        message: codeMsg['10108'],
-                        data: ''
-                    })
-                } else if(err) {
-
-                }
-            })
-            Mark.create({
-                user: user,
-                img: img,
-                isMark: true
-            }, function(err, mark) {
+            // console.log("3333333333333333")
+            
+            User.findOne({
+                _id: user_id
+            }, function(err, user){
+                // console.log("444444444444444444444")
+                
                 if(err) {
+                    // console.log("5555555555555555555555555")
+                    
                     res.json({
-                        code: err.code,
-                        message: codeMsg[err.code] || codeMsg['500'],
+                        code: 10102,
+                        message: codeMsg['10102'],
                         data: ''
                     })
-                } else if(mark) {
+                } else if(user) {
+                    // console.log("6666666666666666666666666666")
+                    
+                    Mark.findOne({
+                        user: user,
+                        img: img
+                    }, function(err, mark) {
+                        // console.log("77777777777777777777")
+                        
+                        if(mark) {
+                            // console.log("8888888888888888888888888")
+                            
+                            res.json({
+                                code: 10108,
+                                message: codeMsg['10108'],
+                                data: ''
+                            })
+                        } else if(err) {
+                            // console.log("99999999999999999999999")
+                            
+                            if(!err.code) {
+                                // console.log("*********************")
+                                
+                                res.json({
+                                    code: err.code,
+                                    message: codeMsg[err.code] || codeMsg['500'],
+                                    data:''
+                                })
+                            } else {
+                                // console.log("###############")
+                                
+                                Mark.create({
+                                    user: user,
+                                    img: img,
+                                    isMark: true
+                                }, function(err, mark) {
+                                    // console.log("100101010100000000");
+                                    
+                                    if(err) {
+                                        res.json({
+                                            code: err.code,
+                                            message: codeMsg[err.code] || codeMsg['500'],
+                                            data: ''
+                                        })
+                                    } else if(mark) {
+                                        res.json({
+                                            code: 200,
+                                            message: codeMsg['200'],
+                                            data: mark
+                                        })
+                                    }
+                                })
+                            }
+                        } else {
+                            // console.log("###############")
+                                
+                            Mark.create({
+                                user: user,
+                                img: img,
+                                isMark: true
+                            }, function(err, mark) {
+                                // console.log("100101010100000000");
+                                
+                                if(err) {
+                                    res.json({
+                                        code: err.code,
+                                        message: codeMsg[err.code] || codeMsg['500'],
+                                        data: ''
+                                    })
+                                } else if(mark) {
+                                    res.json({
+                                        code: 200,
+                                        message: codeMsg['200'],
+                                        data: mark
+                                    })
+                                }
+                            })
+                        // }
+                        }
+                    })
+                } else {
                     res.json({
-                        code: 200,
-                        message: codeMsg['200'],
-                        data: mark
+                        code: 500,
+                        message: codeMsg['500'],
+                        data: "user err weizhi"
                     })
                 }
-            })
+            })        
+        } else {
+            res.json({
+                code: 500,
+                message: codeMsg['500'],
+                data: "img err weizhi"
+            })            
         }
     })
 }
