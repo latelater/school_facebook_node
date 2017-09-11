@@ -63,13 +63,12 @@ exports.login = function(req, res, next) {
             let encryptedStr = encryptedObj.encryptedPass(password);
             if(user.password === encryptedStr) {
                 req.session.user = user;
-                console.log(req.session, "*******");
-                console.log(req.cookies, "11111*******11111");
                 let sessionuser = req.session;
+                let cookies = req.cookies;
                 res.json({
                     code: 200,
                     message: codeMsg['200'],
-                    data: sessionuser
+                    data: req.cookies
                 })
             } else {
                 res.json({
