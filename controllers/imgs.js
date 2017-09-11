@@ -4,6 +4,7 @@ import {Remark} from '../models/remarkList';
 import {Mark} from '../models/markList';
 import encryptClass from "../utils/Encrypt";
 import myDate from "../utils/MyDate";
+import {User} from '../models/usersInfo';
 const fs = require('fs');
 
 exports.uploadImg = function(req, res, next) {
@@ -38,7 +39,7 @@ exports.uploadImg = function(req, res, next) {
             })
         } else if(user) {
             Img.create({
-                user: req.session.user,
+                user: user,
                 description: description,
                 imgurl: target_path
             }, function(err, img) {
@@ -64,7 +65,49 @@ exports.createRemark = function(req, res, next) {
     let content = req.body.content;
     let img_id = req.body.img_id;
     let user_id = req.body.user_id;
-
+    User.findOne({
+        _id: user_id
+    }, function(err, user) {
+        if(err) {
+            res.json({
+                code: 10102,
+                message: codeMsg['10102'],
+                data: ''
+            })
+        } else if(user) {
+            Img.findOne({
+                _id: img_id
+            }, function(err, img) {
+                if(err) {
+                    res.json({
+                        code: err.code || 10104,
+                        message: codeMsg[err.code] || codeMsg['10104'],
+                        data: ''
+                    })
+                } else if(img) {
+                    Remark.create({
+                        // user: req.session.user,
+                        img: img,
+                        content: content 
+                    }, function(err, remark) {
+                        if(err) {
+                            res.json({
+                                code: err.code,
+                                message: codeMsg[err.code] || codeMsg['500'],
+                                data: ''
+                            })
+                        } else if(remark) {
+                            res.json({
+                                code: 200,
+                                message: codeMsg['200'],
+                                data: remark
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
     Img.findOne({
         _id: img_id
     }, function(err, img) {
