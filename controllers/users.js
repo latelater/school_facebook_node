@@ -64,6 +64,7 @@ exports.login = function(req, res, next) {
             if(user.password === encryptedStr) {
                 req.session.user = user;
                 console.log(req.session, "*******");
+                console.log(req.cookie, "11111*******11111");
                 let sessionuser = req.session;
                 res.json({
                     code: 200,
