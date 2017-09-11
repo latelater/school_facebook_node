@@ -77,7 +77,7 @@ exports.createRemark = function(req, res, next) {
             res.json({
                 code: 10102,
                 message: codeMsg['10102'],
-                data: ''
+                data: err
             })
         } else if(user) {
             Img.findOne({
@@ -150,10 +150,21 @@ exports.addMark = function(req, res, next) {
         } else if(img) {
                     
             Remark.findOne({
-                
+                user: user,
+                img: img
+            }, function(err, remark) {
+                if(remark) {
+                    res.json({
+                        code: 10108,
+                        message: codeMsg['10108'],
+                        data: ''
+                    })
+                } else if(err) {
+
+                }
             })
             Mark.create({
-                // user: req.session.user,
+                user: user,
                 img: img,
                 isMark: true
             }, function(err, mark) {
