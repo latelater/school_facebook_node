@@ -27,7 +27,6 @@ exports.uploadImg = function(req, res, next) {
     } else {
         target_path = '';
     }
-    console.log(target_path);
     User.findOne({
         _id: user_id
     }, function(err, user){
@@ -56,6 +55,12 @@ exports.uploadImg = function(req, res, next) {
                         data: img
                     })
                 }
+            })
+        } else {
+            res.json({
+                code: 10102,
+                message: codeMsg['10102'],
+                data: 'wo zai elese'
             })
         }
     })
@@ -86,7 +91,7 @@ exports.createRemark = function(req, res, next) {
                     })
                 } else if(img) {
                     Remark.create({
-                        // user: req.session.user,
+                        user: user,
                         img: img,
                         content: content 
                     }, function(err, remark) {
@@ -108,43 +113,12 @@ exports.createRemark = function(req, res, next) {
             })
         }
     })
-    Img.findOne({
-        _id: img_id
-    }, function(err, img) {
-        if(err) {
-            res.json({
-                code: err.code || 10104,
-                message: codeMsg[err.code] || codeMsg['10104'],
-                data: ''
-            })
-        } else if(img) {
-            Remark.create({
-                // user: req.session.user,
-                img: img,
-                content: content 
-            }, function(err, remark) {
-                if(err) {
-                    res.json({
-                        code: err.code,
-                        message: codeMsg[err.code] || codeMsg['500'],
-                        data: ''
-                    })
-                } else if(remark) {
-                    res.json({
-                        code: 200,
-                        message: codeMsg['200'],
-                        data: remark
-                    })
-                }
-            })
-        }
-    })
 }
 
 exports.addMark = function(req, res, next) {
     let img_id = req.body.img_id;
     // let isMark = req.body.mark;
-    let user_id = req.body._id;
+    let user_id = req.body.user_id;
 
     // if(isMark === false) {
     //     res.json({
@@ -154,6 +128,7 @@ exports.addMark = function(req, res, next) {
     //     })
     //     return ;
     // }
+
 
     Img.findOne({
         _id: img_id,
