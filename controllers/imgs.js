@@ -58,9 +58,9 @@ exports.uploadImg = function(req, res, next) {
             })
         } else {
             res.json({
-                code: 10102,
-                message: codeMsg['10102'],
-                data: 'wo zai elese'
+                code: 500,
+                message: codeMsg['500'],
+                data: ''
             })
         }
     })
@@ -108,6 +108,12 @@ exports.createRemark = function(req, res, next) {
                                 data: remark
                             })
                         }
+                    })
+                } else {
+                    res.json({
+                        code: 500,
+                        message: codeMsg['500'],
+                        data: ''
                     })
                 }
             })
