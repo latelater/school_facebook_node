@@ -154,7 +154,7 @@ exports.getAllRemarks = function(req, res, next) {
                     data: ''
                 })
             }
-        }).sort({"create_data": 1});
+        });
     } else {
         Img.find({}, function(err, imgs) {
             if(imgs) {
