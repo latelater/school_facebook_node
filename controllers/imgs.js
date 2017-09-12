@@ -137,9 +137,9 @@ exports.createRemark = function(req, res, next) {
     })
 }
 
-exports.getAllRemarks = function(req, res, next) {
+exports.getAllImgs = function(req, res, next) {
     let sort = req.body.sort;
-    if(sort == "data") {
+    if(sort == "date") {
         Img.find({}, function(err, imgs) {
             if(imgs) {
                 res.json({

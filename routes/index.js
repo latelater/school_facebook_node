@@ -13,7 +13,7 @@ router.post('/user/login', user.login);
 router.post('/user/user_info', authorization.requireLogin, user.user_info);
 router.post('/img/uploadImg', img.uploadImg);
 router.post('/img/createRemark', img.createRemark);
-router.post('/img/getAllRemarks', img.getAllRemarks);
+router.post('/img/getAllImgs', img.getAllImgs);
 // router.post('/img/addMark', authorization.requireLogin, img.addMark);
 router.post('/img/addMark', img.addMark);
 
