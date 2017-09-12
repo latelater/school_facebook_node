@@ -44,8 +44,9 @@
 |/img/uploadImg|发送图片|post|files,description|img|是|
 |/img/createRemark|新增评论|post|content,img_id, user_id|remark|是|
 |/img/addMark|新增点赞|post|img_id,user_id|mark|是|
-|/img/getAllImgs|获取全部图片列表|post|sort(可选,date是按照日期)|mark|是|
+|/img/getAllImgs|获取全部图片列表|post|sort(可选,date是按照日期)|图片列表|是|
 |/img/getAllRemarks|获取全部的评论列表|post|img_id|如下|否|
+|/user/getUserAllImgs|获取此用户全部的评论列表|post|user_id|图片列表|否|
 ```
     {
         "code": 200,

@@ -133,7 +133,7 @@ exports.updateUserInfo = function(req, res, next) {
 
 exports.getUserAllImgs = function(req, res, next) {
     // let sort = req.body.sort;
-    let user_id = req.body._id;
+    let user_id = req.body.user_id;
     User.findOne({
         _id: user_id
     }, function(err, user) {
@@ -149,16 +149,23 @@ exports.getUserAllImgs = function(req, res, next) {
                     })
                 } else {
                     res.json({
-                        code: err.code || 500,
-                        message: codeMsg[err.code] || codeMsg['500'],
+                        code: 500,
+                        message: codeMsg['500'],
                         data: ''
                     })
                 }
             }).sort({"create_date": -1});
+        } else if(err) {
+            res.json({
+                code: err.code,
+                message: codeMsg[err.code] || codeMsg['500'],
+                data: ''
+            })
         } else {
             res.json({
-                code: err.code || 500,
-                message: codeMsg[err.code]
+                code: 10102,
+                message: codeMsg['10102'],
+                data: ''
             })
         }
     })
