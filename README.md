@@ -42,46 +42,46 @@
 | user/login| 用户登录 | post |username,password|user|否|
 |/user/user_info| 用户基本信息|post|username|user|是|
 |/img/uploadImg|发送图片|post|files,description|img|是|
-|/img/createRemark|新增评论|post|content,img_id|remark|是|
-|/img/addMark|新增点赞|post|img_id,isMark(true or false)|mark|是|
+|/img/createRemark|新增评论|post|content,img_id, user_id|remark|是|
+|/img/addMark|新增点赞|post|img_id,user_id|mark|是|
 |/img/getAllImgs|获取全部图片列表|post|sort(可选,date是按照日期)|mark|是|
 |/img/getAllRemarks|获取全部的评论列表|post|img_id|如下|否|
 
-{
-    "code": 200,
-    "message": "请求成功",
-    "data": {
-        "description": "快来添加描述吧",
-        "markCount": 1,
-        "remarkCount": 6,
-        "contents": [
-            {
-                "content": "test评论"
-            },
-            {
-                "content": "test评论评论"
-            },
-            {
-                "content": "test评论评论"
-            },
-            {
-                "content": "test评论评论"
-            },
-            {
-                "content": "test评论评论2"
-            },
-            {
-                "content": "test评论评论2"
-            },
-            {
-                "content": "test评论评论2lallalal"
-            },
-            {
-                "content": "test评论评论4444"
-            }
-        ]
+    {
+        "code": 200,
+        "message": "请求成功",
+        "data": {
+            "description": "快来添加描述吧",
+            "markCount": 1,
+            "remarkCount": 6,
+            "contents": [
+                {
+                    "content": "test评论"
+                },
+                {
+                    "content": "test评论评论"
+                },
+                {
+                    "content": "test评论评论"
+                },
+                {
+                    "content": "test评论评论"
+                },
+                {
+                    "content": "test评论评论2"
+                },
+                {
+                    "content": "test评论评论2"
+                },
+                {
+                    "content": "test评论评论2lallalal"
+                },
+                {
+                    "content": "test评论评论4444"
+                }
+            ]
+        }
     }
-}
 ----------
 
 
