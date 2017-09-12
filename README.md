@@ -45,7 +45,28 @@
 |/img/createRemark|新增评论|post|content,img_id|remark|是|
 |/img/addMark|新增点赞|post|img_id,isMark(true or false)|mark|是|
 |/img/getAllImgs|获取全部图片列表|post|sort(可选,date是按照日期)|mark|是|
+|/img/getAllRemarks|获取全部的评论列表|post|img_id|如下|否|
 
+
+    {
+        description:"miaoshu",
+        markCount: 100,
+        remarkCount: 200,
+        contents:[
+            {
+                username: zhangchi,
+                content:lalalla
+            },
+            {
+                username: zhangchi,
+                content:lalalla
+            },
+            {
+                username: zhangchi,
+                content:lalalla
+            }
+        ]
+    } 
 ----------
 
 
