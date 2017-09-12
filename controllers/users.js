@@ -86,9 +86,9 @@ exports.login = function(req, res, next) {
 };
 
 exports.user_info = function(req, res, next) {
-    let username = req.body.username;
+    let user_id = req.body.user_id;
     User.findOne({
-        username: username
+        _id: user_id
     }, function(err, user) {
         if(err) {
             res.json({
@@ -101,6 +101,12 @@ exports.user_info = function(req, res, next) {
                 code: 200,
                 message: codeMsg['200'],
                 data: user
+            })
+        } else {
+            res.json({
+                cdde: 10102,
+                message: codeMsg['10102'],
+                data: ''
             })
         }
     })
