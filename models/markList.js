@@ -6,20 +6,30 @@ let date = new myDate();
 let createDate = date.getNowDate();
 
 const MarkSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        require: true
+    // user: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     require: true
+    // },
+    // img: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Img',
+    //     require: true
+    // },
+    user_id: {
+        type: String,
+        require: true,
+        default:''
     },
-    img: {
-        type: Schema.Types.ObjectId,
-        ref: 'Img',
-        require: true
+    img_id:  {
+        type: String,
+        require: true,
+        default:''
     },
     isMark: {
         type: Boolean,
         require: true,
-        defalt: false
+        default: false
     },
     create_date: {
         type: Date,

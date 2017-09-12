@@ -68,7 +68,7 @@ exports.login = function(req, res, next) {
                 res.json({
                     code: 200,
                     message: codeMsg['200'],
-                    data: req.cookies
+                    data: user._id
                 })
             } else {
                 res.json({

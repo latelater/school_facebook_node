@@ -27,6 +27,14 @@ const ImgSchema = new Schema({
         type: String,
         default: '',
         require: true
+    },
+    remarkCount: {
+        type:Number,
+        default: 0
+    },
+    markCount:{
+        type:Number,
+        default: 0
     }
 })
 
