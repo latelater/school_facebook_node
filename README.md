@@ -47,26 +47,41 @@
 |/img/getAllImgs|获取全部图片列表|post|sort(可选,date是按照日期)|mark|是|
 |/img/getAllRemarks|获取全部的评论列表|post|img_id|如下|否|
 
-
-    {
-        description:"miaoshu",
-        markCount: 100,
-        remarkCount: 200,
-        contents:[
+{
+    "code": 200,
+    "message": "请求成功",
+    "data": {
+        "description": "快来添加描述吧",
+        "markCount": 1,
+        "remarkCount": 6,
+        "contents": [
             {
-                username: zhangchi,
-                content:lalalla
+                "content": "test评论"
             },
             {
-                username: zhangchi,
-                content:lalalla
+                "content": "test评论评论"
             },
             {
-                username: zhangchi,
-                content:lalalla
+                "content": "test评论评论"
+            },
+            {
+                "content": "test评论评论"
+            },
+            {
+                "content": "test评论评论2"
+            },
+            {
+                "content": "test评论评论2"
+            },
+            {
+                "content": "test评论评论2lallalal"
+            },
+            {
+                "content": "test评论评论4444"
             }
         ]
-    } 
+    }
+}
 ----------
 
 
