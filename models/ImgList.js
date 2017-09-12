@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 import myDate from "../utils/MyDate";
 const Schema = mongoose.Schema;
 
-let date = new myDate();
-let createDate = date.getNowDate();
-let image_name = date.toString();
+// let date = new myDate();
+// let createDate = date.getNowDate();
+let date = new Date();
+console.log(date);
 const ImgSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
@@ -21,7 +22,7 @@ const ImgSchema = new Schema({
     },
     create_date: {
         type: Date,
-        default: createDate
+        default: date
     },
     imgurl: {
         type: String,

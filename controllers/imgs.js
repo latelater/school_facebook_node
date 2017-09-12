@@ -10,7 +10,7 @@ const fs = require('fs');
 exports.uploadImg = function(req, res, next) {
     let description = '快来添加描述吧';
     let user_id = req.body.user_id;
-    if(req.description) {
+    if(req.body.description) {
         description = req.body.description;
     }
     console.log(req.files);
@@ -138,21 +138,40 @@ exports.createRemark = function(req, res, next) {
 }
 
 exports.getAllRemarks = function(req, res, next) {
-    Img.find({}, function(err, imgs) {
-        if(imgs) {
-            res.json({
-                code: 200,
-                message: codeMsg['200'],
-                data: imgs
-            })
-        } else {
-            res.json({
-                code: err.code || 500,
-                message: codeMsg[err.code] || codeMsg['500'],
-                data: ''
-            })
-        }
-    })
+    let sort = req.body.sort;
+    if(sort == "data") {
+        Img.find({}, function(err, imgs) {
+            if(imgs) {
+                res.json({
+                    code: 200,
+                    message: codeMsg['200'],
+                    data: imgs
+                })
+            } else {
+                res.json({
+                    code: err.code || 500,
+                    message: codeMsg[err.code] || codeMsg['500'],
+                    data: ''
+                })
+            }
+        }).sort({"create_data": 1});
+    } else {
+        Img.find({}, function(err, imgs) {
+            if(imgs) {
+                res.json({
+                    code: 200,
+                    message: codeMsg['200'],
+                    data: imgs
+                })
+            } else {
+                res.json({
+                    code: err.code || 500,
+                    message: codeMsg[err.code] || codeMsg['500'],
+                    data: ''
+                })
+            }
+        }).sort({"markCount": -1});
+    } 
 },
 exports.addMark = function(req, res, next) {
     let img_id = req.body.img_id;
