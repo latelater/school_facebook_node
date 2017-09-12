@@ -46,7 +46,7 @@
 |/img/addMark|新增点赞|post|img_id,user_id|mark|是|
 |/img/getAllImgs|获取全部图片列表|post|sort(可选,date是按照日期)|mark|是|
 |/img/getAllRemarks|获取全部的评论列表|post|img_id|如下|否|
-
+```
     {
         "code": 200,
         "message": "请求成功",
@@ -82,6 +82,8 @@
             ]
         }
     }
+
+```
 ----------
 
 
