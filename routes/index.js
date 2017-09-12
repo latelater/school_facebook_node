@@ -16,6 +16,7 @@ router.post('/img/createRemark', img.createRemark);
 router.post('/img/getAllImgs', img.getAllImgs);
 // router.post('/img/addMark', authorization.requireLogin, img.addMark);
 router.post('/img/addMark', img.addMark);
+router.post('/img/getAllRemarks', img.getAllRemarks);
 
 module.exports = router;
 

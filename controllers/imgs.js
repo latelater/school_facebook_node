@@ -154,7 +154,7 @@ exports.getAllImgs = function(req, res, next) {
                     data: ''
                 })
             }
-        });
+        }).sort({"create_date": -1});
     } else {
         Img.find({}, function(err, imgs) {
             if(imgs) {
@@ -173,6 +173,63 @@ exports.getAllImgs = function(req, res, next) {
         }).sort({"markCount": -1});
     } 
 },
+// {
+//     description:"miaoshu",
+//     marks: 100,
+//     contents:[
+//         {
+//             username: zhangchi,
+//             content:lalalla
+//         },
+//         {
+//             username: zhangchi,
+//             content:lalalla
+//         },
+//         {
+//             username: zhangchi,
+//             content:lalalla
+//         }
+//     ]
+// }
+exports.getAllRemarks = function(req, res, next) {
+    let img_id = req.body.img_id;
+    Img.findOne({
+        _id: img_id
+    }, function(err, img) {
+        if(img) {
+            Remark.find({
+                img:img
+            }, function(err, remarks) {
+                if(remarks) {
+                    let imgMessages = {
+                        "description": img.description,
+                        "markCount": img.markCount,
+                        "remarkCount":img.remarkCount,
+                        "contents": []
+                    }
+                    remarks.forEach(function(remark) {
+                        let content = {
+                            username: remark.user.username,
+                            content:remark.content
+                        }
+                        imgMessages.contents.push(content);
+                    }, this);
+                    res.json({
+                        code: 200,
+                        message: codeMsg['200'],
+                        data:imgMessages
+                    })
+                } else if(err) {
+                    res.json({
+                        code: err.code,
+                        message: codeMsg[err.code] || codeMsg['500'],
+                        data: ''
+                    })
+                }
+            })
+        }
+    })
+},
 exports.addMark = function(req, res, next) {
     let img_id = req.body.img_id;
     let user_id = req.body.user_id;
@@ -180,7 +237,7 @@ exports.addMark = function(req, res, next) {
         user_id: user_id,
         img_id: img_id
     }, function(err, mark) {
-                        
+                    
         if(mark) {
                             
             res.json({
