@@ -32,10 +32,11 @@ exports.uploadImg = function(req, res, next) {
     }, function(err, user){
         if(err) {
             res.json({
-                code: 10102,
-                message: codeMsg['10102'],
-                data: ''
+                code: 500,
+                message: codeMsg['500'],
+                data: "mei you user"
             })
+            
         } else if(user) {
             Img.create({
                 user: user,
@@ -58,8 +59,8 @@ exports.uploadImg = function(req, res, next) {
             })
         } else {
             res.json({
-                code: 500,
-                message: codeMsg['500'],
+                code: 10102,
+                message: codeMsg['10102'],
                 data: ''
             })
         }

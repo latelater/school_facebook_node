@@ -1,7 +1,11 @@
 import {code as codeMsg} from '../utils/code';
-import {User} from '../models/usersInfo';
+import {Img} from '../models/ImgList';
+import {Remark} from '../models/remarkList';
+import {Mark} from '../models/markList';
 import encryptClass from "../utils/Encrypt";
 import myDate from "../utils/MyDate";
+import {User} from '../models/usersInfo';
+const fs = require('fs');
 
 exports.create_user = function (req, res, next) {
     let username = req.body.username;
@@ -125,4 +129,39 @@ exports.updateUserInfo = function(req, res, next) {
     //     }
     // })
 };
+
+
+exports.getUserAllImgs = function(req, res, next) {
+    // let sort = req.body.sort;
+    let user_id = req.body._id;
+    User.findOne({
+        _id: user_id
+    }, function(err, user) {
+        if(user){
+            Img.find({
+                user:user
+            }, function(err, imgs) {
+                if(imgs) {
+                    res.json({
+                        code: 200,
+                        message: codeMsg['200'],
+                        data: imgs
+                    })
+                } else {
+                    res.json({
+                        code: err.code || 500,
+                        message: codeMsg[err.code] || codeMsg['500'],
+                        data: ''
+                    })
+                }
+            }).sort({"create_date": -1});
+        } else {
+            res.json({
+                code: err.code || 500,
+                message: codeMsg[err.code]
+            })
+        }
+    })
+
+}
 
