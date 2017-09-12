@@ -102,11 +102,27 @@ exports.createRemark = function(req, res, next) {
                                 data: ''
                             })
                         } else if(remark) {
-                            res.json({
-                                code: 200,
-                                message: codeMsg['200'],
-                                data: remark
+
+                            Img.update({
+                                _id: img_id
+                            }, {
+                                $inc:{"remarkCount":1}
+                            }, function(err, count){
+                                if(err) {
+                                    res.json({
+                                        code: err.code,
+                                        message: codeMsg[err.code] || codeMsg['500'],
+                                        data: err
+                                    })
+                                } else {
+                                    res.json({
+                                        code: 200,
+                                        message: codeMsg['200'],
+                                        data: remark
+                                    })
+                                }
                             })
+
                         }
                     })
                 } else {
@@ -122,7 +138,21 @@ exports.createRemark = function(req, res, next) {
 }
 
 exports.getAllRemarks = function(req, res, next) {
-
+    Img.find({}, function(err, imgs) {
+        if(imgs) {
+            res.json({
+                code: 200,
+                message: codeMsg['200'],
+                data: imgs
+            })
+        } else {
+            res.json({
+                code: err.code || 500,
+                message: codeMsg[err.code] || codeMsg['500'],
+                data: ''
+            })
+        }
+    })
 },
 exports.addMark = function(req, res, next) {
     let img_id = req.body.img_id;
@@ -140,39 +170,63 @@ exports.addMark = function(req, res, next) {
                 data: ''
             })
         } else if(err) {
-                            
-            if(!err.code) {
+            res.json({
+                code: err.code,
+                message: codeMsg[err.code] || codeMsg['500'],
+                data: err.message
+            })                    
+            // if(!err.code) {
                                 
-                res.json({
-                    code: err.code,
-                    message: codeMsg[err.code] || codeMsg['500'],
-                    data:''
-                })
-            } else {
+            //     res.json({
+            //         code: err.code,
+            //         message: codeMsg[err.code] || codeMsg['500'],
+            //         data:''
+            //     })
+            // } else {
                                 
-                Mark.create({
-                    user: user,
-                    img: img,
-                    isMark: true
-                }, function(err, mark) {
+            //     Mark.create({
+            //         user: user,
+            //         img: img,
+            //         isMark: true
+            //     }, function(err, mark) {
                                     
-                    if(err) {
-                        res.json({
-                            code: err.code,
-                            message: codeMsg[err.code] || codeMsg['500'],
-                            data: ''
-                        })
-                    } else if(mark) {
-                        res.json({
-                            code: 200,
-                            message: codeMsg['200'],
-                            data: mark
-                        })
-                    }
-                })
-            }
-        } else {
-                                
+            //         if(err) {
+            //             res.json({
+            //                 code: err.code,
+            //                 message: codeMsg[err.code] || codeMsg['500'],
+            //                 data: ''
+            //             })
+            //         } else if(mark) {
+            //             // res.json({
+            //             //     code: 200,
+            //             //     message: codeMsg['200'],
+            //             //     data: mark
+            //             // })
+
+            //                 Img.update({
+            //                     _id: img_id
+            //                 }, {
+            //                     $inc:{"markCount":1}
+            //                 }, function(err, count){
+            //                     if(err) {
+            //                         res.json({
+            //                             code: err.code,
+            //                             message: codeMsg[err.code] || codeMsg['500'],
+            //                             data: err
+            //                         })
+            //                     } else {
+            //                         res.json({
+            //                             code: 200,
+            //                             message: codeMsg['200'],
+            //                             data: mark
+            //                         })
+            //                     }
+            //                 })
+
+            //         }
+            //     })
+            // }
+        } else {                                
             Mark.create({
                 user_id: user_id,
                 img_id: img_id,
@@ -186,10 +240,24 @@ exports.addMark = function(req, res, next) {
                         data: ''
                     })
                 } else if(mark) {
-                    res.json({
-                        code: 200,
-                        message: codeMsg['200'],
-                        data: mark
+                    Img.update({
+                        _id: img_id
+                    }, {
+                        $inc:{"markCount":1}
+                    }, function(err, count){
+                        if(err) {
+                            res.json({
+                                code: err.code,
+                                message: codeMsg[err.code] || codeMsg['500'],
+                                data: err
+                            })
+                        } else {
+                            res.json({
+                                code: 200,
+                                message: codeMsg['200'],
+                                data: count
+                            })
+                        }
                     })
                 }
             })
