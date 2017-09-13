@@ -41,7 +41,8 @@ exports.uploadImg = function(req, res, next) {
             Img.create({
                 user: user,
                 description: description,
-                imgurl: target_path
+                imgurl: target_path,
+                username: user.username
             }, function(err, img) {
                 if(err) {
                     res.json({
@@ -91,10 +92,12 @@ exports.createRemark = function(req, res, next) {
                         data: ''
                     })
                 } else if(img) {
+                    console.log(user.username, "11111111111111111")
                     Remark.create({
                         user: user,
                         img: img,
-                        content: content 
+                        content: content,
+                        username: user.username
                     }, function(err, remark) {
                         if(err) {
                             res.json({
@@ -210,10 +213,11 @@ exports.getAllRemarks = function(req, res, next) {
                     }
                     remarks.forEach(function(remark) {
                         let content = {
-                            username: remark.user.username,
+                            username: remark.username,
                             content:remark.content
                         }
                         imgMessages.contents.push(content);
+                        
                     }, this);
                     res.json({
                         code: 200,

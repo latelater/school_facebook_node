@@ -25,6 +25,11 @@ const RemarkSchema = new Schema({
         type: Date,
         default: createDate
     },
+    username: {
+        type: String,
+        default: '',
+        require: true
+    }
 })
 
 exports.Remark = mongoose.model('Remark', RemarkSchema);

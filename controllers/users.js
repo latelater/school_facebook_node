@@ -97,11 +97,34 @@ exports.user_info = function(req, res, next) {
                 data: ''
             })
         } else if(user) {  
-            res.json({
-                code: 200,
-                message: codeMsg['200'],
-                data: user
+            Img.find({
+                user: user_id
+            }, function(err, imgs) {
+                Mark.find({
+                    user_id: user_id
+                }, function(err, marks) {
+                    Remark.find({
+                        user: user_id
+                    }, function(err, remarks) {
+                        let user_message = {
+                            usernameCount: user.username,
+                            marksCount: marks.length,
+                            remarksCount: remarks.length,
+                            imgsCount: imgs.length
+                        }
+                        res.json({
+                            code: 200,
+                            message: codeMsg['200'],
+                            data: user_message
+                        })
+                    })
+                })
             })
+            // res.json({
+            //     code: 200,
+            //     message: codeMsg['200'],
+            //     data: user
+            // })
         } else {
             res.json({
                 cdde: 10102,

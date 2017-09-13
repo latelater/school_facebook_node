@@ -36,6 +36,11 @@ const ImgSchema = new Schema({
     markCount:{
         type:Number,
         default: 0
+    },
+    username: {
+        type: String,
+        default: '',
+        require: true
     }
 })
 
