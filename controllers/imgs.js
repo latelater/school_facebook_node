@@ -141,6 +141,34 @@ exports.createRemark = function(req, res, next) {
     })
 }
 
+exports.isMark = function(req, res, next) {
+    let user_id = req.body.user_id;
+    let img_id = req.body.img_id;
+    Mark.findOne({
+        img_id: img_id,
+        user_id: user_id
+    }, function(err, mark) {
+        if(mark) {
+            res.json({
+                code: 10109,
+                message: codeMsg['10109'],
+                data: true
+            })
+        } else if (err) {
+            res.json({
+                code: 500,
+                message: codeMsg['500'],
+                data: ''
+            })
+        } else {
+            res.json({
+                code: 10110,
+                message: codeMsg['10110'],
+                data: false
+            })
+        }
+    })
+}
 exports.getAllImgs = function(req, res, next) {
     let sort = req.body.sort;
     if(sort == "date") {

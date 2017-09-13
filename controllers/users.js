@@ -159,6 +159,46 @@ exports.updateUserInfo = function(req, res, next) {
     // })
 };
 
+exports.getUserAllRemarks = function(req, res, next) {
+    let user_id = req.body.user_id;
+    User.findOne({
+        _id: user_id
+    }, function(err, user) {
+        if(user) {
+            Img.find({
+                user:user
+            }, function(err, imgs) {
+                if(imgs) {
+                    res.json({
+                        code: 200,
+                        message: codeMsg['200'],
+                        data: imgs
+                    })
+                } else {
+                    res.json({
+                        code: 500,
+                        message: codeMsg['500'],
+                        data: ''
+                    })
+                }
+            }).sort({"create_date": -1});
+        } else if(err) {
+            res.json({
+                code: err.code,
+                message: codeMsg[err.code] || codeMsg['500'],
+                data: ''
+            })
+        } else {
+            res.json({
+                code: 10102,
+                message: codeMsg['10102'],
+                data: ''
+            })
+        }
+    })
+
+}
+
 
 exports.getUserAllImgs = function(req, res, next) {
     // let sort = req.body.sort;

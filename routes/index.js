@@ -18,5 +18,6 @@ router.post('/img/getAllImgs', img.getAllImgs);
 router.post('/img/addMark', img.addMark);
 router.post('/img/getAllRemarks', img.getAllRemarks);
 router.post('/user/getUserAllImgs', user.getUserAllImgs);
+router.post('/img/isMark', img.isMark);
 module.exports = router;
 
